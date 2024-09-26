@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<style type="text/css">
+	.comentario{
+		text-align: center;
+	}
+</style>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Comentarios</title>
+	<link rel="icon" type="image/png" href="https://github.com/chilehero2023/chilehero/blob/main/icono.png?raw=true"/>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link href="css/estilos.css" rel="stylesheet">
+	<link href="css/background.css" rel="stylesheet">
+	<link href="css/fontello.css" rel="stylesheet">
+  <link href="css/color.css" rel="stylesheet">
+	<script>
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+  </script>
+</head>
+</head>
+<body class="text-white">
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="index.html"><img src="https://github.com/chilehero2023/chilehero/blob/main/chilehero_horizontal.png?raw=true"class="img-fluid" alt="..."width="120" height="120"></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" href="index.html">Inicio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Canciones</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" href="#">Pide tu canción</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="downloads_icon.html">Descarga logos</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="charters.html">Charters</a>
+					</li>
+					<li class="nav-item">
+            <a class="nav-link" href="colaborar.html">Colabora</a>
+          </li>
+					<li class="nav-item">
+						<a class="nav-link" href="faq.html">Preguntas Frecuentes</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Comentarios</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>	
+	<div class="comentario">
+	    <h2>Deja tu comentario</h2>
+	    <form id="formulario" action="guardar_comentarios.php" method="post">
+	        <label for="nombre">Nombre:</label><br>
+	        <input type="text" id="nombre" name="name" placeholder="Tu Nombre" required><br>
+	        <label for="comentario">Comentario:</label><br>
+	        <textarea id="comentario" name="comentario" placeholder="Escribe tu comentario"rows="4" cols="50" required></textarea><br>
+	        <button id="enviar"class="btn btn-primary" type="submit">Enviar Comentario</button>
+	    </form>
+	</div>
+	<div class="listacomentarios">
+		<h2>Comentarios:</h2>
+				<?php
+		$conexion = mysqli_connect("localhost:3306", "chileher_smuggling", "aweonaoctm2024", "chileher_comentarios2");
+		if (mysqli_connect_errno()) {
+		     echo "Error al conectar a MySQL: " . mysqli_connect_error();
+		     exit();
+		}
+		$query = "SELECT nombre, comentario, fecha FROM comentarios ORDER BY fecha DESC";
+		$resultado = mysqli_query($conexion, $query);
+
+		while ($fila = mysqli_fetch_assoc($resultado)) {
+		    echo "<div style='border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;'>";
+		    echo "<strong>" . $fila['nombre'] . "</strong> el " . $fila['fecha'] . ":<br>";
+		    echo $fila['comentario'] . "<br>";
+		    echo "</div>";
+
+		}
+
+		mysqli_free_result($resultado);
+		mysqli_close($conexion);
+		?>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

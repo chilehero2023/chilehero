@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pedro Spinner</title>
+	<link href="app.css" rel="stylesheet">
+</head>
+<body>
+<audio id="miAudio" loop>
+	<source src="audio.wav" type="audio/wav">
+</audio>
+<div class="spinner">
+	<img src="pedro.png">
+</div>
+<script>
+window.addEventListener('load', function() {
+  var audioPrincipal = document.getElementById('miAudio');
+
+  // Forzar la reproducción del audio en la primera interacción del usuario con la página
+  document.body.addEventListener('click', function() {
+    audioPrincipal.play();
+  }, { once: true }); // Esto asegura que el evento se ejecute solo una vez
+
+  audioPrincipal.onplay = function() {
+    var todosLosAudios = document.getElementsByTagName('audio');
+    for (var i = 0; i < todosLosAudios.length; i++) {
+      var audio = todosLosAudios[i];
+      if (audio != audioPrincipal) {
+        audio.pause();
+      }
+    }
+  };
+});
+</script>
+</body>
+</html>

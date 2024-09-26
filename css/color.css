@@ -1,0 +1,18 @@
+.btn-danger{
+		background-color:red !important;
+		border-color: red !important;
+	}
+.card {
+		border-color: white !important;
+	}
+.btn-primary{
+		background-color:blue !important;
+	    border-color: blue !important;
+	}
+.bg-danger{
+    background-color: #460000 !important;
+}
+.text-danger {
+    color: red !important;
+}
+

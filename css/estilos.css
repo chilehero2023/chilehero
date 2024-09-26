@@ -1,0 +1,78 @@
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.btn-wsp{
+  position: fixed;
+  width: 55px;
+  height: 55px;
+  line-height: 55px;
+  bottom: 30px;
+  right: 30px;
+  background: #0df053;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 40px;
+  box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+.btn-wsp:hover{
+  text-decoration: none;
+  background: #fff;
+  color: #0df053;
+}
+
+.contenedor {
+    width: 135px;
+    height: 135px;
+    margin: 10px;
+    border: 2px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px	    
+}
+.numerocanciones1{
+    font-family: Digital_Dismay;
+    font-size: 30px;
+}
+.numerocanciones2{
+    font-family: Digital_Dismay;
+    font-size: 30px;
+}
+.numerocanciones3{
+    font-family: Digital_Dismay;
+    font-size: 30px;
+}
+@font-face {
+font-family: "Digital_Dismay";
+src: url("../font/Digital_Dismay.otf");
+  }
+
+/* CSS ESTETICO */
+
+#tcentral {
+	text-transform: uppercase !important;
+	text-align: center !important;
+	margin-bottom: 50px;
+}
+
+.titulos {
+	text-transform: uppercase !important;
+}
+
+#img1 {
+	z-index: 1 !important;
+	position: absolute;
+	right: 10px;
+	top: 19em;
+	
+	
+}
+
+#redinfo {
+	color: red !important;
+}

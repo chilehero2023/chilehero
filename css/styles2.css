@@ -1,0 +1,37 @@
+.btn-danger{
+  background-color: red !important;
+}
+.btn-primary{
+  background-color: blue !important;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.form
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px 25px;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+}
+ form .titlelogin{
+  font-size:35px;
+  font-weight: 800;
+  margin-bottom: 20px;
+ }
+ form label{
+  margin-bottom: 20px;
+ }

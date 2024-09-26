@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<style type="text/css">
+
+</style>
+
+<html lang="es">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" type="image/png" href="https://github.com/chilehero2023/chilehero/blob/main/icono.png?raw=true"/>
+
+	<title>Página Oficial de Chile Hero</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+	<link href="css/estilos.css" rel="stylesheet">
+
+	<link href="css/background.css" rel="stylesheet">
+
+	<link href="css/fontello.css" rel="stylesheet">
+
+  <link href="css/color.css" rel="stylesheet">
+
+
+
+	<script>
+
+    document.addEventListener('contextmenu', function (e) {
+
+      e.preventDefault();
+
+    });
+
+  </script>
+
+</head>
+
+<body class="text-white">
+
+	<div id="miModal" class="modal fade text-dark">
+
+		<div class="modal-dialog">
+
+			<div class="modal-content">
+
+				<div class="modal-header">
+
+					<h5 class="modal-title">Novedades:</h5>
+
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+				</div>
+
+				<div class="modal-body">
+
+					<p>Se viene una nueva página del Chile Hero, en donde podrás registrarte, al registrate podrás:<br>
+
+                    - Pedir Canciones<br>
+
+                    - Descargar Canciones<br>
+
+                    - Descargar los logos<br>
+
+                    - Poder subir tus charts (obviamente, de artistas chilenos)<br>
+
+                    - Y más</p>
+
+				</div>
+
+				<div class="modal-footer">
+
+					<a class="btn btn-primary" href="songs.html" role="button">Canciones añadidas</a></p>
+
+					<a class="btn btn-primary" href="request.html" role="button">Pide tu canción</a></p>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<script>
+
+		window.onload = function() {
+
+			var miModal = new bootstrap.Modal(document.getElementById('miModal'));
+
+			miModal.show();
+
+		};
+
+	</script>
+
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+		<div class="container-fluid">
+
+			<a class="navbar-brand" href="index.html"><img src="https://github.com/chilehero2023/chilehero/blob/main/chilehero_horizontal.png?raw=true"class="img-fluid" alt="..."width="120" height="120"></a>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+				<span class="navbar-toggler-icon"></span>
+
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+					<li class="nav-item">
+
+						<a class="nav-link active" aria-current="page" href="#">Inicio</a>
+
+					</li>
+
+					<li class="nav-item">
+
+						<a class="nav-link" href="songs.html">Canciones</a>
+
+					</li>
+
+					<li class="nav-item">
+
+						<a class="nav-link" href="request.html">Pide tu canción</a>
+
+					</li>
+
+					<li class="nav-item">
+
+						<a class="nav-link" href="downloads_icon.html">Descarga logos</a>
+
+					</li>
+
+					<li class="nav-item">
+
+						<a class="nav-link" href="charters.html">Charters</a>
+
+					</li>
+
+					<li class="nav-item">
+
+						<a class="nav-link" href="faq.html">Preguntas Frecuentes</a>
+
+					</li>
+
+					<li class="nav-item">
+
+						<a class="nav-link" href="colaborar.html">Colabora</a>
+
+					</li>
+
+					<li class="nav-item">
+
+						<a class="nav-link" href="comentarios.php">Comenta</a>
+
+					</li>
+
+				</ul>
+
+				<a class="btn btn-primary" href="login.php">Accede</a>
+
+			</div>
+
+		</div>
+
+	</nav>
+
+		<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+			<div class="carousel-indicators">
+
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+
+			</div>
+
+			<div class="carousel-inner">
+
+				<br>
+
+				<br>
+
+				<div class="carousel-item active" data-bs-interval="10000">
+
+					<a href="https://www.youtube.com/watch?v=CWvJEDDv5uI">
+
+						<img src="https://github.com/chilehero2023/chilehero/blob/main/00_Setlist.png?raw=true" class="d-block w-100" alt="..." width="500" height="500">
+
+					</a>
+
+				</div>
+
+				<div class="carousel-item" data-bs-interval="10000">
+
+					<a href="https://www.youtube.com/watch?v=JWvgUMAK5Iw">
+
+						<img src="https://github.com/chilehero2023/chilehero/blob/main/01_cumbia.png?raw=true" class="d-block w-100" alt="..."width="500" height="500">
+
+					</a>
+
+				</div>
+
+				<div class="carousel-item" data-bs-interval="10000">
+
+					<a href="https://www.youtube.com/watch?v=nr-HKHGpIvg">
+
+						<img src="https://github.com/chilehero2023/chilehero/blob/main/02_De_Todo_Un_Poco.png?raw=true" class="d-block w-100" alt="..."width="500" height="500">
+
+					</a>
+
+				</div>
+
+				<div class="carousel-item" data-bs-interval="10000">
+
+					<a href="https://www.youtube.com/watch?v=0PUyXFhqkMY">
+
+						<img src="https://github.com/chilehero2023/chilehero/blob/main/03_31_Minutos.png?raw=true" class="d-block w-100" alt="..."width="500" height="500">
+
+					</a>
+
+				</div>
+
+				<div class="carousel-item" data-bs-interval="10000">
+
+					<a href="https://www.youtube.com/watch?v=orPlXDQR-dM">
+
+						<img src="https://github.com/chilehero2023/chilehero/blob/main/04_Mega_Pack_02.png?raw=true" class="d-block w-100" alt="..."width="500" height="500">
+
+					</a>
+
+				</div>
+
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+
+					<span class="visually-hidden"></span>
+
+				</button>
+
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+
+					<span class="visually-hidden"></span>
+
+				</button>
+
+			</div>
+
+		</div>
+
+		<br>
+
+		<br>
+
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<img src="img/construcción.png" class="img-fluid" alt="...">
+						</div>
+						<div class="col-lg-6">
+							<h5>ESTAMOS MIGRANDO A UNA NUEVA PÁGINA</h5>
+							<p>Si quieres descargar las canciones, puedes pinchar el boton de aqui abajo y registrarte.<br>
+							En caso de que tengas una cuenta, pincha el boton de acceder.</p>
+							<div class="col-lg-6">
+								<a href="registro.php" class="btn btn-danger">Registrate</a>
+								<a href="login.php" class="btn btn-primary">Acceder</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+
+
+<footer>
+
+		<p style="color:white;text-align:center;">Sigueme en instagram</p>
+
+		<a href="https://www.instagram.com/chilehero2023"><center><img src="https://github.com/chilehero2023/chilehero/blob/main/instagram.png?raw=true"class="img-fluid" alt="..."width="40" height="40"></center></a>
+
+		<br>
+
+		<br>
+
+		<p style="color:white;text-align: center;">Copyright &copy; | smuggling</p>
+
+</footer>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

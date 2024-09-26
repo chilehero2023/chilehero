@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="utf-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algo interesante va a ocurrir</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #screamer, #banMessage {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #screamer video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: red;
+        }
+
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body onclick="startScreamer();">
+    <div class="container">
+        <h1>¡Sigue mirando la pantalla, algo interesante va a pasar!</h1>
+        <p><font color="red">Haz clic en cualquier parte para continuar.</font></p>
+    </div>
+
+    <div id="screamer">
+        <video id="screamerVideo" autoplay>
+            <source src="video/screamer.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de videos.
+        </video>
+    </div>
+
+    <div id="banMessage" onclick="startScreamer();">
+        <center><img src="https://github.com/chilehero2023/chilehero/blob/main/icono.png?raw=true" class="img-fluid" width="300" height="300"></center>
+        <h1>FUISTE BANEADO POR AWEONAO</h1>
+        <p>Si quieres ser desbaneado, contactate conmigo al smuggling@chilehero.cl, solo serás baneado 1 vez, acuerdate que guardo las IP en base de datos,<br>
+        por lo tanto si eres baneado nuevamente, no se te desbaneará</p>
+    </div>
+
+    <script>
+        function startScreamer() {
+            document.getElementById("banMessage").style.display = "none"; // Oculta el mensaje de ban si está visible
+            const video = document.getElementById("screamerVideo");
+            document.getElementById("screamer").style.display = "flex";
+            video.currentTime = 0; // Reinicia el video al principio
+            video.play(); // Reproduce el video con audio
+            setTimeout(showBanMessage, 5000); // Cambia al mensaje de ban después de 5 segundos
+        }
+
+        function showBanMessage() {
+            document.getElementById("screamer").style.display = "none";
+            document.getElementById("banMessage").style.display = "block";
+        }
+    </script>
+</body>
+</html>

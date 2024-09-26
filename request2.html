@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<style type="text/css">
+.form-group{
+	text-align: center;
+}
+</style>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="https://github.com/chilehero2023/chilehero/blob/main/icono.png?raw=true" />
+	<title>Pide tu canción</title>
+	<link rel="stylesheet"href="css/estilos.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+  	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+  	<link href="css/background.css" rel="stylesheet">
+  	<link href="css/color.css" rel="stylesheet">
+	<script>
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+  </script>
+</head>
+<body class="text-white">
+	<div id="miModal" class="modal fade text-dark">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">He vuelto a habilitar pedidos</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Gracias a todos por su apoyo con el proyecto, como lo dije en la comunidad de youtube y en el mismo video, las canciones que no están en ultimo dlc, los agregaré en algun futuro dlc. Asi que no se preocupen por eso.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		window.onload = function() {
+			var miModal = new bootstrap.Modal(document.getElementById('miModal'));
+			miModal.show();
+		};
+	</script>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<a class="navbar-brand" href="index.html"><img src="https://github.com/chilehero2023/chilehero/blob/main/chilehero_horizontal.png?raw=true"class="img-fluid" alt="..."width="120" height="120"></a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link" href="index.html">Inicio</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="songs.html">Canciones</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#">Pide tu canción</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="downloads_icon.html">Descarga logos</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="charters.html">Charters</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="faq.html">Preguntas Frecuentes</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="colaborar.html">Colabora</a>
+				</li>
+				<li class="nav-item">
+						<a class="nav-link" href="comentarios.php">Comenta</a>
+				</li>
+			</ul>
+		</div>
+	</nav>	
+	<form action="request.php" method="post">
+		<div class="form-group">
+			<br>
+			<label>
+				<i class="fa-solid fa-user"></i>
+				<input type="text"id="nombre" name="nombre" placeholder="Tu Nombre o Nick" required disabled>
+			</label>
+		</div>
+		<div class="form-group">
+			<label>
+				<i class="fa-solid fa-music"></i>
+				<input type="text"id="artista" name="artista" placeholder="Los Tres" required disabled>
+			</label>
+		</div>
+		<div class="form-group">
+			<label>
+				<i class="bi bi-music-note"></i>
+				<input type="text"id="cancion" name="cancion" placeholder="He Barrido el Sol" required disabled>
+			</label>
+		</div>
+		<div class="form-group">
+			<label>
+				<i class="bi bi-envelope"></i>
+				<input type="email"id="email" name="email" placeholder="fulanito@gmail.com" required disabled>
+				<p>Tiene que ser un correo válido, para responder su correo</p>
+				<center><button type="submit" class="btn btn-primary" name="enviar">Enviar Solicitud</button></center>
+				<font color="red">OJO CON ESTO, CADA PEDIDO ME NOTIFICA LA IP, POR LO TANTO SI PRESIONAS EL BOTON, SERÁS BANEADO.</font>
+			</label>
+		</div>
+	</form>
+	<script>
+        function getIP(json) {
+            document.getElementById("ip").value = json.ip;
+        }
+
+        // Llamar al servicio JSONP para obtener la IP
+        var script = document.createElement("script");
+        script.src = "https://api.ipify.org?format=jsonp&callback=getIP";
+        document.body.appendChild(script);
+    </script>
+	<br>
+	<br>
+	<div class="sticky-xl-top">
+		<table class="table table-dark tablacharts table-striped table-bordered align-middle"id="tablachart">
+            <thead>
+            	<tr>
+            		<th>Artista</th>
+            		<th>Canción</th>
+            		<th>Pedido por</th>
+            	</tr>
+            </thead>
+            <tbody>
+				<tr>
+            		<td>Ana Tijoux</td>
+            		<td>1977</td>
+					<td>Mcseba3x1t</td>
+            	</tr>
+            	<tr>
+            		<td>Ases Falsos</td>
+            		<td>Europa</td>
+            		<td>danielmunoz</td>
+            	</tr>
+            	<tr>
+            		<td>Barba de Palo</td>
+            		<td>Juega el Aire</td>
+            		<td>sevey</td>
+            	</tr>
+            	<tr>
+            		<td>Chico Trujillo</td>
+            		<td>Sin Excusas</td>
+            		<td>chelo06</td>
+            	</tr>
+				<tr>
+            		<td>Claudio Narea</td>
+            		<td>Rico El Pais</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+            	<tr>
+            		<td>Combo Ginebra</td>
+            		<td>Pasto Seco</td>
+            		<td>sevey</td>
+            	</tr>
+            	<tr>
+            		<td>Diego Lorenzini</td>
+            		<td>Desde la Sarten al Fuego</td>
+            		<td>fabiann.am</td>
+            	</tr>
+            	<tr>
+            		<td>Diego Lorenzini</td>
+            		<td>Me Voy a Valparaíso (ft Erlend Øye)</td>
+            		<td>fabiann.am</td>
+            	</tr>
+            	<tr>
+            		<td>Diego Lorenzini</td>
+            		<td>Serotonina (ft Simón Campusano)</td>
+            		<td>fabiann.am</td>
+            	</tr>
+            	<tr>
+            		<td>Diego Lorenzini</td>
+            		<td>Sin Otro Particular se Despide</td>
+            		<td>fabiann.am</td>
+            	</tr>
+            	<tr>
+            		<td>Diego Lorenzini</td>
+            		<td>Soy un corpóreo</td>
+            		<td>fabiann.am</td>
+            	</tr>
+            	<tr>
+            		<td>Difuntos Correa</td>
+            		<td>El Precio</td>
+            		<td>sorronrock</td>
+            	</tr>
+				<tr>
+            		<td>Dorso</td>
+            		<td>El Espanto Surge De La Tumba</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Dorso</td>
+            		<td>La Mansion De El Doctor Mortis</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Emociones Clandestinas</td>
+            		<td>Un Nuevo Baile</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+            	<tr>
+            		<td>Fiskales Ad-Hok</td>
+            		<td>Carlitos Jesus</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Fiskales Ad-Hok</td>
+            		<td>Viva Santiago</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+            	<tr>
+            		<td>Fother Muckers</td>
+            		<td>Explorador</td>
+            		<td>fabiann.am</td>
+            	</tr>
+				<tr>
+            		<td>Fother Muckers</td>
+            		<td>Fuerza y Fortuna</td>
+            		<td>Xuaxaipleto</td>
+            	</tr>
+				<tr>
+            		<td>Francisca Valenzuela</td>
+            		<td>Quiero Verte Mas</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Glup!</td>
+            		<td>Complice Eterno</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Grupo Nadie</td>
+            		<td>Ausencia</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Joe Vasconcellos</td>
+            		<td>Mágico</td>
+					<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Jorge Gonzalez</td>
+            		<td>Fe</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Jorge Gonzalez</td>
+            		<td>Mi Casa En El Arbol</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>La Ley</td>
+            		<td>Autoruta</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>La Ley</td>
+            		<td>En la Ciudad</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>La Ley</td>
+            		<td>Placer</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Leonardo Favio</td>
+            		<td>Ella...Ella Ya Me Olvido, Yo La Recuerdo Ahora</td>
+					<td>Mcseba3x1t</td>
+            	</tr>
+            	<tr>
+            		<td>Los Bandoleros de Teno</td>
+            		<td>Cerveza Con Limón</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Bunkers</td>
+            		<td>Canción para Mañana</td>
+            		<td>vlara742</td>
+            	</tr>
+				<tr>
+            		<td>Los Bunkers</td>
+            		<td>Las Cosas Que Cambie Y Deje Por Ti</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Bunkers</td>
+            		<td>Maldito Amor</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Bunkers</td>
+            		<td>Miño</td>
+            		<td>Erron</td>
+            	</tr>
+				<tr>
+            		<td>Los Bunkers</td>
+            		<td>Rey</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Ex</td>
+            		<td>Esta Tarde Vi Llover</td>
+            		<td>Mcseba3x1t</td>
+            	</tr> 
+            	<tr>
+            		<td>Los Jaivas</td>
+            		<td>Poderosa Muerte</td>
+            		<td>Medic</td>
+            	</tr>
+				<tr>
+            		<td>Los Prisioneros</td>
+            		<td>Los Cuatro Luchos</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Prisioneros</td>
+            		<td>Fotos Y Autografos</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Prisioneros</td>
+            		<td>Te Amo</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Pulentos</td>
+            		<td>Pulentos</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Pulentos</td>
+            		<td>Piantes</td>
+					<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Tetas</td>
+            		<td>Superteta</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Tetas</td>
+            		<td>Corazon De Sandia</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Tres</td>
+            		<td>Bolsa De Mareos</td>
+					<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Tres</td>
+            		<td>Camino</td>
+					<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Tres</td>
+            		<td>Gato por Liebre</td>
+					<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Tres</td>
+            		<td>Quien Es La Que Viene Alli</td>
+					<td>Mcseba3x1t</td>
+            	</tr>
+            	<tr>
+            		<td>Lucybell</td>
+            		<td>Me Dejo Tentar</td>
+            		<td>gerardovasquez</td>
+            	</tr>
+            	<tr>
+            		<td>Macha y el Bloque Depresivo</td>
+            		<td>Aunque no Sea Conmigo</td>
+            		<td>carlosmc4k</td>
+            	</tr>
+				<tr>
+            		<td>Macha y el Bloque Depresivo</td>
+            		<td>El Gran Tirano</td>
+            		<td>fabiann.am</td>
+            	</tr>
+            	<tr>
+            		<td>Macha y el Bloque Depresivo</td>
+            		<td>La Carretera</td>
+            		<td>sevey</td>
+            	</tr>
+				<tr>
+            		<td>Makiza</td>
+            		<td>Chupaya 99</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Makiza</td>
+            		<td>Con Elegancia</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Makiza</td>
+            		<td>Un Dia Cualquiera</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Los Tres</td>
+            		<td>Gato por Liebre</td>
+					<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Melvin Crema</td>
+            		<td>Moriria</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+            	<tr>
+            		<td>Rosario Alfonso</td>
+            		<td>Que más Quieres de mí</td>
+            		<td>fabiann.am</td>
+            	</tr> 
+				<tr>
+            		<td>Panico</td>
+            		<td>Acción y Velocidad</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Panico</td>
+            		<td>Chica Bonita</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Panico</td>
+            		<td>Transpiralo</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Parkinson</td>
+            		<td>Papel Floreado</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Pedro Piedra</td>
+            		<td>Vacaciones En El Mas Alla</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Pettinelis</td>
+            		<td>Anparax</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Profetas Y Freneticos</td>
+            		<td>¡Muévete, retuércete!</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Quique Neira</td>
+            		<td>Armonia de amor (version ska)</td>
+            		<td>Ignacio Vallejos</td>
+            	</tr>
+				<tr>
+            		<td>Supernova</td>
+            		<td>Maldito Amor</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Sinergia</td>
+            		<td>Mujer Robusta</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Tata Barahona</td>
+            		<td>Te vas de mi</td>
+            		<td>fabiann.am</td>
+            	</tr>
+				<tr>
+            		<td>Tiro de Gracia</td>
+            		<td>Combo 10</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Tiro de Gracia</td>
+            		<td>Viaje Sin Rumbo</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Upa!</td>
+            		<td>Sueldos</td>
+            		<td>Mcseba3x1t</td>
+            	</tr>
+				<tr>
+            		<td>Viena</td>
+            		<td>Salon De Emociones</td>
+            		<td>Mcseba3x1t</td>
+            	</tr> 
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js">
+    </script>
+	<script>
+        $(document).ready(function () {
+            $('#tablachart').DataTable({
+                language: {
+                    processing: "Tratamiento en curso...",
+                    search: "Buscar&nbsp;:",
+                    lengthMenu: "Agrupar de _MENU_ items",
+                    info: "Hay _TOTAL_ pedidos",
+                    infoEmpty: "No existen datos.",
+                    infoFiltered: "(filtrado de _MAX_ elementos en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    zeroRecords: "No se encontraron datos con tu busqueda",
+                    emptyTable: "No hay datos disponibles en la tabla.",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": active para ordenar la columna en orden ascendente",
+                        sortDescending: ": active para ordenar la columna en orden descendente"
+                    }
+                },
+                scrollY: 400,
+                lengthMenu: [ [50, -1], [50, "All"] ],
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="es">
+<style type="text/css">
+      thead{
+            text-align: center;
+      }
+      tbody{
+            text-align: center;
+      }
+      .contenedor {
+          width: 105px;
+          height: 105px;
+          margin: auto;
+          border: 2px solid;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 10px     
+      }
+      .contenedor2{
+            text-align: center;
+      }
+      .numerocanciones{
+            font-family: Digital_Dismay;
+            font-size: 30px;
+      }
+      @font-face {
+            font-family: "Digital_Dismay";
+            src: url("font/Digital_Dismay.otf");
+      }
+</style>
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="icon" 
+      type="image/png" 
+      href="img/icono.png?raw=true"/>
+      <title>Lista de Canciones</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+      <link href="css/estilos.css" rel="stylesheet">
+      <link href="css/background.css" rel="stylesheet">
+      <link href="css/fontello.css" rel="stylesheet">
+      <link href="css/color.css" rel="stylesheet">
+      <script>
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+  </script>
+</head>
+<body class="text-white">
+      <div class="modal fade" id="cancionesDeshabilitadasModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                  <div class="modal-content">
+                        <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Canciones Deshabilitadas</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                              <b><font color="red">Las canciones están deshabilitadas, si quieres seguir descargando accede con tu cuenta.</font></b>
+                        </div>
+                        <div class="modal-footer">
+                              <a class="btn btn-primary" href="registro.php" role="button">Registrarse</a></p>
+                              <a href="login.php" class="btn btn-primary">Acceder</a>
+                        </div>
+                  </div>
+            </div>
+      </div>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.html"><img src="img/chilehero_horizontal.png?raw=true"class="img-fluid" alt="..."width="120" height="120"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                              <a class="nav-link" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="#">Canciones</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" href="request.html">Pide tu canción</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" href="downloads_icon.html">Descarga logos</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" href="charters.html">Charters</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" href="faq.html">Preguntas Frecuentes</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" href="comentarios.html">Comentarios</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" href="colaborar.html">Colabora</a>
+                        </li>
+                        <li class="nav-item">
+                                    <a class="nav-link" href="comentarios.php">Comenta</a>
+                        </li>
+                  </ul>
+            </div>
+      </nav>
+      <div class="container mt-5">
+            <div class="card bg-dark text-white">
+                  <div class="card-body">
+                  <center><h5 class="card-title">ACTUALIZACIÓN</h5></center>
+                  <p class="card-text">Esta página quedará deshabilitada el día 15 de Julio. Para que puedan seguir descargando las canciones, tendran que registrarse.<br>
+                        Además de que ya se subiran canciones nuevas, pero para eso tendran que loguearse.</p>
+                        <div class="row">
+                              <div class="col-6">
+                                    <center><a href="registro.php" class="btn btn-primary">Registrarse</a></center>
+                              </div>
+                              <div class="col-6">
+                                    <center><a href="login.php" class="btn btn-primary">Acceder</a></center>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+      <br>
+      <div class="sticky-xl-top">
+            <table class="table table-dark tablacharts table-striped table-bordered align-middle"id="tablachart" style="display:none">
+                  <thead>
+                        <tr>
+                              <th style="color:red;">Album</th>
+                              <th>Artista</th>
+                              <th style="color:blue;">Canción</th>
+                              <th style="color:red;">Fuente</th>
+                              <th><img src="img/Icon_Guitar.png?raw=true" width="50" height="50"></img></th>
+                              <th><img src="img/Icon_Bass.png?raw=true" width="50" height="50"></img></th>
+                              <th><img src="img/CloneHero.png?raw=true" width="50" height="50"></img></th>
+                              <th><img src="img/wtde_logo.png?raw=true" width="50" height="50"></img></th>
+                              <th><img src="img/Rock_Band_3_Logo.png?raw=true" width="50" height="50">
+                        </tr>
+                  </thead>
+                  <tbody>
+                        <tr>
+                              <td><img src="img/31minutos_temp1.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>31 Minutos</td>
+                              <td>Baila sin Cesar</td>
+                              <td>DLC 03: 31 Minutos</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1lAwia13miVuzqQbADUL0AdkJMR7MpqoH/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td><a href="https://rhythmverse.co/songfile/8fc98c5eaa164cf2b6cde7ead47dc24c">Descarga RB3</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/31minutos_temp2.png?raw=true" width="50" height="50"></td></img>
+                              <td>31 Minutos</td>
+                              <td>Dinosaurio Anacleto</td>
+                              <td>DLC 03: 31 Minutos</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1dMjgDRCQE3_sACRiR2ujMld3aE5QWfUb/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td><a href="https://rhythmverse.co/songfile/89db630b0514403e9bc4ae86c88b0f55">Descarga RB3</a></td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/31minutos_temp1.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>31 Minutos</td>
+                              <td>Lala</td>
+                              <td>DLC 03: 31 Minutos</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1gtvV1AzZnJMJdAcUSUs2MVAwGXAsfN8l/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/31minutos_temp1.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>31 Minutos</td>
+                              <td>Yo Nunca vi Television</td>
+                              <td>DLC 03: 31 Minutos</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/121sF5aZQRWenjkpHFYLIPwKWLU2amlBC/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/31minutos_temp1.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>31 Minutos</td>
+                              <td>Yo Opino</td>
+                              <td>DLC 03: 31 Minutos</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1OOHKxrSVd1KZJI4sDWtCFq4va7VOnja4/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/aleste.png?raw=true" width="50" height="50"></td></img>
+                              <td>Al Este</td>
+                              <td>Hay un Limite</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1AZyDwY7yPwP8bFktFaSihA8pFXgM5qW8/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/17wJhz8ICoGAzOVWcYmf21MMP6U-nkTgp/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/I.png?raw=true" width="50" height="50"></td></img>
+                              <td>Alejandro Silva</td>
+                              <td>El Lagarto</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/5diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1Bo-BKNSNXwlEpZildzSb5b6tVHVWdpK8/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/16fPblksY2BiFert3SMANrF5b3MWto5e1/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/ordencaos.png?raw=true" width="50" height="50"></td></img>
+                              <td>Alejandro Silva</td>
+                              <td>Metalhimno</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/13TrzdsSHd0yCBD6TVz6A3iM7i8aq7Hdq/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/1LvrJqSn-ok9QGmG6LWzorMo_W3XEm3V4/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/quiereme.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>Amerika'n Sound</td>
+                              <td>Haciendo el Amor</td>
+                              <td>DLC 01: Cumbia</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1xHIlNxnQmiaMNKTQofGN6wyPB7aN7j3K/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/aparato.png?raw=true" width="50" height="50"></td></img>
+                              <td>Aparato Raro</td>
+                              <td>Calibraciones</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1ODScfup_zjqMzXfX138txCMS4l9-47L3/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/1U_u5zMxhMywSSajmCZUaM7ZqnRcWsf7Z/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/noseamor.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>Ataquemos</td>
+                              <td>Dudi</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/16IxmH0HYmJY4rRDuplmZlGD9KUE5SLS8/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/noseamor.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>Ataquemos</td>
+                              <td>Tesitura</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td>NO TIENE</img></td>
+                              <td><a href="https://drive.google.com/file/d/1rbyEN3aHkPrc_NiYpAS0YexMHkkGuiqb/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/barbapalo.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>Barba de Palo</td>
+                              <td>Chiloé</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/19TNooLu2yt2jLofnA8027Zq1qASWwiHx/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/bonzo.jpg" width="50" height="50"></td></img>
+                              <td>Bonzo</td>
+                              <td>Satania</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1duyZ6JCTlRYWNb1Ew9N5OI03ao6uGQoa/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/tinto.png?raw=true" width="50" height="50"></td></img>
+                              <td>Chancho en Piedra</td>
+                              <td>El Impostor</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1ZR9uxQ1oUQ7-E9tC0JIyhna2_Qyca4pd/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/1EcpSPjGhdXAhASco93A35CLVFMPzsShd/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/chancho.png?raw=true" width="50" height="50"></td></img>
+                              <td>Chancho en Piedra</td>
+                              <td>Eligiendo Una Reina</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1l3VSlA0NJXFBl-xaGOcnj-zXHZx7nHdF/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/19jNiuDsI4ECfXRewqX1YvfKjdwJIzI-r/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/chancho.png?raw=true" width="50" height="50"></td></img>
+                              <td>Chancho en Piedra</td>
+                              <td>Historia de amor y condón</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/5diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/5diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1mQELbnyZzB6WciD5pw03b5i--gcnrvLV/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/19A-QGicG5o4YqHtzr7DxVw0SNQZsjGrA/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/chilombiana.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>Chico Trujillo</td>
+                              <td>La Escoba</td>
+                              <td>DLC 01: Cumbia</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1QOYrr8QuaKwS6-dqXqrvhiFn_34OSVgb/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/platobailable.jpg" width="50" height="50"></td></img>
+                              <td>Chico Trujillo</td>
+                              <td>Loca</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1axlKFn0HEa_M5BjHFhdaOi-Ix9pESd0r/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/desdecasa.jpg" width="50" height="50"></td></img>
+                              <td>Cristobal</td>
+                              <td>Una Niña Una Historia</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1340F1fSJCg_VBJ2two1Lx1vmny4t1oi0/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/palabritas.jpg" width="50" height="50"></td></img>
+                              <td>Diego Lorenzini</td>
+                              <td>Poesia Conspirativa</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1WIUATHPVkXyCSFWzbCGgH0gyw6Tv_xGT/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/eduardo.png?raw=true" width="50" height="50"></td></img>
+                              <td>Eduardo Gatti</td>
+                              <td>Los Momentos</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td>NO TIENE</td>
+                              <td><a href="https://drive.google.com/file/d/1GXD54e5J8kkFVxDl9wBujWzvpAlfS1Ib/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/1XVe91vBRs2fJ0TfL6XnLhe9Bqclr4Rt3/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/em314.png" width="50" height="50"></td></img>
+                              <td>EM 314</td>
+                              <td>El Templo del Placer</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1-MvbBHIZo72QgFBe6bUX8I8_55PgucGv/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/fiskales.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>Fiskales Ad-Hok</td>
+                              <td>Ranchera</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1P3jvLl5bkYo3aoo9uq2e5BTaXap4ee8J/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/174vh2LYPeG62tlq-DGAa0-oeJafUf6Ko/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/nosoyuno.jpg" width="50" height="50"></td></img>
+                              <td>Fother Muckers</td>
+                              <td>Aunque todo salió mal</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1dO7Vx9sGTrUq2eKmS8LXyokyEgqpwYRw/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/gondwana.png?raw=true" width="50" height="50"></td></img>
+                              <td>Gondwana</td>
+                              <td>Sentimiento Original</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1_px8VsgUHB0YLz5oY_p4j1_AJppbuB9O/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/1gL-HGszMq71C-UuH8wXWocB-UkT74w8m/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/glup.png?raw=true" width="50" height="50"></td></img>
+                              <td>Glup</td>
+                              <td>Puta Jefe</td>
+                              <td>DLC 02: De Todo un Poco</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1OL_283Tnj0RAxz2hkkOE4rwx9UGkp-mv/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/partevida.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>Grupo Alegria</td>
+                              <td>Mujeres y Cervezas</td>
+                              <td>DLC 01: Cumbia</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1QytvwMvalJ4RcdOVF5_vURWZs7vXJUBG/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/calle.png?raw=true" width="50" height="50"></td></img>
+                              <td>Gufi</td>
+                              <td>Por Ella</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/10ynlVVGIG4V65hPArWLW9vtw-HvfvEqR/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/1Zr1D63f65INHy4MN2LukXmQc3EMhdejQ/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/am.png?raw=true" width="50" height="50"></td></img>
+                              <td>Javiera y los Imposibles</td>
+                              <td>Maldita Primavera</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1NxwmDVvnCoEjtMqKNgjuIsLvTFFJVBNp/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td><a href="https://rhythmverse.co/songfile/327656d074b8474bbabb47f7f12fc326">Descargar RB3</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/am.png?raw=true" width="50" height="50"></td></img>
+                              <td>Javiera y los Imposibles</td>
+                              <td>Maldita Primavera</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1xCugzblSVU4fzit61hPJPExKvn1SZHl4/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/confortasdañas.png" width="50" height="50"></td></img>
+                              <td>Kidd Voodoo</td>
+                              <td>Confortas pero Dañas</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/10yq1xigUxwOcJ0QWdURJTdF8ujpxeYg0/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/sobrevive.png?raw=true" width="50" height="50"></td></img>
+                              <td>Kudai</td>
+                              <td>Dejame Gritar</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1suUOFy6YNXHgiXb6MqExPIHyGyzzFszW/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/sobrevive.png" width="50" height="50"></td></img>
+                              <td>Kudai</td>
+                              <td>Escapar</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1jt72LCn2Y2fBUkMdSZWPeF42H1Ubaza_/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/vuelo.png?raw=true" width="50" height="50"></td></img>
+                              <td>Kudai</td>
+                              <td>Lejos de la Ciudad</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/11D5Qp0UHpuDS5ztna6g5wgS0pEbJPAAz/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/sobrevive.png?raw=true" width="50" height="50"></td></img>
+                              <td>Kudai</td>
+                              <td>Llevame</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1yqbjIPbGg4vmmt4n_aHWZMkfU5xplh5V/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/vuelo.png" width="50" height="50"></td></img>
+                              <td>Kudai</td>
+                              <td>Sin Despertar</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/17Sq_V_UIXJLqC05CKa6YS5ilLybkjT91/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/sobrevive.png?raw=true" width="50" height="50"></td></img>
+                              <td>Kudai</td>
+                              <td>Tu</td>
+                              <td>DLC 02: De Todo un Poco</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/10ynlVVGIG4V65hPArWLW9vtw-HvfvEqR/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/vuelo.png?raw=true" width="50" height="50"></td></img>
+                              <td>Kudai</td>
+                              <td>Ya Nada Queda</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1HciTGTXUn7jvEHSHvWjz0GC2XoXEZ683/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/unplugged.png?raw=true" width="50" height="50"></td></img>
+                              <td>La Ley</td>
+                              <td>Mentira</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1oZzmViNu4vexZsWlOMM-7T9GVe3t_POi/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/laley.png?raw=true" width="50" height="50"></td></img>
+                              <td>La Ley</td>
+                              <td>Tejedores de Ilusión</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1wI5Jm9I9bFXIDpuKB460H8aZr5atkB4_/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/sabanas.png?raw=true" width="50" height="50"></td></img>
+                              <td>La Noche</td>
+                              <td>Es el Amor</td>
+                              <td>DLC 01: Cumbia</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1vvukZixomLlWEKX1TwRD2j_iL30X-DdL/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/rue.png?raw=true" width="50" height="50"></td></img>
+                              <td>La Rue Morgue</td>
+                              <td>Sigues Dando Vuelta</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1ET41nkLbFHJalvcXLFAWPIJzcitYTTR4/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/dulce.png?raw=true" width="50" height="50"></td></img>
+                              <td>La Sociedad</td>
+                              <td>Nada Quedará</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1O3N3go4PcJBqdxjO4WQGxYLdyvA2trOj/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/camino.png?raw=true" width="50" height="50"></td></img>
+                              <td>La Sociedad</td>
+                              <td>Quizás</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1W658eFMLMjlwkeXzchxqbPt_lJ4dLs3Y/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/musica.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Bunkers</td>
+                              <td>Angel para un Final</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1i-eGfmO5H8U6suB60AYp7Vj7x_eYLgBu/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/luz.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Bunkers</td>
+                              <td>Bailando Solo</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1LNggKDGXkKhd0SjzBgq1ckN4FKN-9EMh/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/infiel.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Bunkers</td>
+                              <td>Infiel</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1LpCf6o0eCpzsK61t4U5w66JN8ZUvY076/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/perros.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Bunkers</td>
+                              <td>Llueve Sobre la Ciudad</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1eSL-pKjz74w5xKJjxC2soAxi8avU5lUz/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/perros.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Bunkers</td>
+                              <td>Mientele</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1KXqgNw6Qu428MMEqQaZe7NhgWCZqYN0U/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/perros.png" width="50" height="50"></td></img>
+                              <td>Los Bunkers</td>
+                              <td>Te Vistes y Te Vas</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1KGRZlfTN0IpE7GHJJbP438owRgaSn_AU/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/vargas.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>Los Hermanos Vargas</td>
+                              <td>En Cañete</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/6diff.png?raw=true" width="20" height="20"></img></td>
+                              <td>NO TIENE</td>
+                              <td><a href="https://drive.google.com/file/d/1FeePCtZSEokGDLk1MkTBoKUvsioBywuj/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/ninita.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>Los Jaivas</td>
+                              <td>Mira Niñita</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/4diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1arJe6a5XJKXedexzAmaL-0FruklCSlW6/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/multitudes.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Miserables</td>
+                              <td>El Crack</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1FCgQrqDxEBnTNDgHtX4ZATj1If8rpG6e/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/vino.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Mox!</td>
+                              <td>Ataque de Caca</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/13f7dFSvgBYivcoPvtYGJJbKrCJTvUG7I/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/japiaguer.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Mox!</td>
+                              <td>Curao Manejo Mejor</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/5diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1giyv36VTh3cR1wgtlQUXvUBgyoJzt3dG/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/vino.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Mox!</td>
+                              <td>Lo Cortes no Quita lo Caliente</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1PLlFq5VN8YA63BqENNVEG-JwWqw4_d_d/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/vino.png" width="50" height="50"></td></img>
+                              <td>Los Mox!</td>
+                              <td>Me chupó las Bolas</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1bjxllPUCKvZPIZNut-ghbFdIEEr6Y0e-/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td><a href="https://rhythmverse.co/songfile/6b6fbd0958034434b8428b77a75200ab">Descargar RB3</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/cover.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Mox!</td>
+                              <td>No lo Aceptaremox</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1Nqtn0SNBdpDAzS6cXLlAe5OZ0P9--S6V/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/vino.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Mox!</td>
+                              <td>Ron Damon</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1RBIZCRfF0qxgaIcpvdnjm0zcG6RDDGvV/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/vino.png" width="50" height="50"></td></img>
+                              <td>Los Mox!</td>
+                              <td>Tabla del Cero</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1sXzscoa_PDwEWmkYTh8TpZ-7lZRenmBg/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/cover.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Mox!</td>
+                              <td>Un Beso y una Flor<br>(Con Tono)</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1lp-eIceXNSAW0J1GDvw4RfhFpAXe0rKe/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/peores.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Peores de Chile</td>
+                              <td>Chicholina</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1lp-eIceXNSAW0J1GDvw4RfhFpAXe0rKe/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/peores.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Peores de Chile</td>
+                              <td>Sindrome Camboya</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/5diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1Dzao8egLfndYDbWrM7tKsxwoQWGiqc12/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/fuerza.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Prisioneros</td>
+                              <td>Generación de Mierda</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/5diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/179gGcZZHD1LlxPjNBtVT2s_jQL74VRgq/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/80.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Prisioneros</td>
+                              <td>La Voz de los 80</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1QtmlZtU9TfbdK4fUG4imRJx9gQDsb6f_/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/basura.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Prisioneros</td>
+                              <td>Maldito Sudaca</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1yYXBR-K5c5wl0G8dnJd2ERlWZETTIyjk/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/80.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Prisioneros</td>
+                              <td>Mentalidad Televisiva</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/18OJWmEn5T_nJqFTWaCE2Ds-15kj4kTPm/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/80.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Prisioneros</td>
+                              <td>Nunca Quedas Mal con Nadie</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1ITim6geN6mXfuvrJjqr3fjUozltjKwm0/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/fuerza.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Prisioneros</td>
+                              <td>Pa Pa Pa</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1q8qevV91SA2CpaqR1MCAiZjgSlM75LBy/view?usp=sharingg">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/piedras.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Prisioneros</td>
+                              <td>Por que no se van</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1UTAs7cZUfQXPzrFh8PrOU6Uau4CkTaZo/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/piedras.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Prisioneros</td>
+                              <td>Por Favor</td>
+                              <td>DLC 02: De Todo un Poco</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/16MOW9g2P0tZ75zQs3bKsCfIqsrSBcfD9/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/80.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Prisioneros</td>
+                              <td>¿Quien Mató a Marilyn?</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1Barvf_Wmirbb8yKZMERVmwDhVpLr2jmN/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/corazones.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Prisioneros</td>
+                              <td>Tren al Sur</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1aPSlghWgJVLJ_VBZh2qKLNn_HrHlMzyP/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/basura.png?raw=true" width="50" height="50"></td></img>
+                              <td>Los Prisioneros</td>
+                              <td>We Are Sudamerican Rockers</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/5diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1W5cueoqyw8dbnuff8UGOJ7DN1Tyy3cwH/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/latinfunk.jpg" width="50" height="50"></td></img>
+                              <td>Los Tetas</td>
+                              <td>Hormigas Planas</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1LL4ftrOELGRl097XpNEHE3fnDI8prsqq/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/sacalabailar.jpeg" width="50" height="50"></td></img>
+                              <td>Los Vikings 5</td>
+                              <td>De Coquimbo Soy</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1jCLOjkcvkOGGiIxSNvEH0F2VFElCQCLv/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/peces.png?raw=true" width="50" height="50"></td></img>
+                              <td>Lucybell</td>
+                              <td>Cuando Respiro en tu Boca</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1JWf6z5PWtAyIeqyUWcV0cojG88qPQm4V/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/macha.jpg" width="50" height="50"></td></img>
+                              <td>Macha y el Bloque Depresivo</td>
+                              <td>Continentales</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1Q2JogK7wW2qnc3sonnHn_J4MFQxygW4-/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/aporia.jpg" width="50" height="50"></td></img>
+                              <td>MalVivir</td>
+                              <td>Arder</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1B9k8Opkq0aKu-ZKyUKIZyQY843ab1OLd/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/kollong.png" width="50" height="50"></td></img>
+                              <td>Mawiza</td>
+                              <td>Nunca</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/5diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/4diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1VVTf9zJQty5fRWy2R6UzbG78yIbHqUKB/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/hoshiimono.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>MetalPaws</td>
+                              <td>Hoshiimono ga atte</td>
+                              <td>DLC 02: De Todo un Poco</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1i4-kucz75nhwwYV6tk-WwjxKXHXYqP1S/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/simple.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>Nabu</td>
+                              <td>Donde Vas</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1F0pxDCgnGvbjbLAsMLmAYLmJSMeSPIlq/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/desnudos.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>Noche de Brujas</td>
+                              <td>Es el Amor</td>
+                              <td>DLC 01: Cumbia</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1O-_rMXnHuD4lyBQN3MGePs_j7eRm4nq6/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/vida.jpg" width="50" height="50"></td></img>
+                              <td>Oscar Andrade</td>
+                              <td>Noticiero Crónico</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/17e3K0EAqCkIh3HQSMCbGNGwxZFGKSIjr/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/pornostar.png" width="50" height="50"></td></img>
+                              <td>Pánico</td>
+                              <td>Miss Intoxic Llega a la Disco</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1Idx06upnJVQ2qaEzQzW4qTTzqgsrE22N/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/pettinellis.png?raw=true" width="50" height="50"></td></img>
+                              <td>Pettinellis</td>
+                              <td>Ch Ba Puta La Wea</td>
+                              <td>DLC 02: De Todo un Poco</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1Ao6vajv09hWOdgec99ZE8h65kNXVDCij/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/pettinellis.png?raw=true" width="50" height="50"></td></img>
+                              <td>Pettinellis</td>
+                              <td>Hospital</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1iaZKRzLAKmq2WtxQDB1_ip_iqe_zfY1s/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/pettinellis.png?raw=true" width="50" height="50"></td></img>
+                              <td>Pettinellis</td>
+                              <td>Un hombre Muerto en el Ring</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1Vq7UulRO88812pBrRdoQ3907Pv-TKFyE/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/rockandpop.png" width="50" height="50"></td></img>
+                              <td>Raras Tocatas Pencas</td>
+                              <td>Me Mojé la Raja</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1ku5NgANixWE-0j4RvkqVY1BJSzDpgLp6/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/delirio.png?raw=true" width="50" height="50"></td></img>
+                              <td>Sinergia</td>
+                              <td>Jefe</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1qWXdnrSrfXjYDY7QgWwD7mJZFRRh5fRe/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/delirio.png?raw=true" width="50" height="50"></td></img>
+                              <td>Sinergia</td>
+                              <td>Te Enojai por Todo</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/19ezVt9iYhHhtGWsndPZEkvS3MBJy5-dt/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/procesalo.png?raw=true" width="50" height="50"></td></img>
+                              <td>Sinergia</td>
+                              <td>Todos me Deben Plata</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1rWn-XWzSwyeVx6PhABW6m33QLZ1Ui4Ba/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/fotografia.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tata Barahona</td>
+                              <td>La Mejicana</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1pjszx-WzQcazSPmMjaO0GqgRk8yjOYDG/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Amazander</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1erehA9WJVG3pIZftTzQRhKyKADL5UCOZ/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Batibrayan</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1AfRLt8b52LskPh89HkQjfV3LHNlToiuZ/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Cobrador Humano</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/106g-ihelT43icH1RssgUuWewEM3f-JjL/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Descartable</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1I18gOgpaa1IIUX-pdch7y9oHanDkq7p8/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Despierta</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1Xkui1lQhg-jzzx9fYz71w5kZv-Wt1pzK/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>El Arrecife</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1ruwGnL_TmuZynW2Qk16uJK1K5dcRpGe_/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>El Fuego</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/19apAVxt_qlCsK349b7m9rQJ2xHsCE1aE/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Es la Hora de Limpiar la Casa</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/12rFfKUv_HXzkZv6WusFvgIHyZcQq2wKh/view?usp=sharing">Descargar CH</a></td>
+                              <td><font color="red">NO DISPONIBLE</font></a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Junior Club</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/10R15cWhlh6FY4gM-Gpmf7_rpxUjbcnVj/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Kerido</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1zG5H0FKCAfiXoHHdRFjCZEU8jcurbA1I/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>La Colina</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1P0Os66Y50PR0alJjPB0ouydtwyJsPwwd/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>La Granja</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/18UyfC42HnJMWURcKiGQ8Kbys3NaZlONY/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Newbie</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1A6s4-dJxddd7rWXZjKVKhVRpbwTkWe_M/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Picao a Vit</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1zoNwP-mqrQJRnyq5-f0PRaTk3vfZCdtZ/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Playboy</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1lVZyo0DI9TGzQabPiMeXuapcZ922oEZG/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Titas y Drogas</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1F6rbAw4wkfZ36lKqa6qJ4CxFsckp3K2M/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Veinte Por Ciento</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1EkFTzkOYEiGI-TUxV1rNIv1s99PiYhvc/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/limpiar.png?raw=true" width="50" height="50"></td></img>
+                              <td>Tronic</td>
+                              <td>Zigura Roel</td>
+                              <td>Discografia Tronic</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1Hjeqw2SrrmIZOfbkY80vO9fm4L-c5HY2/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/nosison.jpg" width="50" height="50"></td></img>
+                              <td>Tus Amigos Nuevos</td>
+                              <td>Viernes</td>
+                              <td>DLC 04: Mega Pack 02</td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1ln7p7gAbJ80MVcWIHPUh6FbfyQVxqCg8/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/happy.png?raw=true" width="50" height="50"></td></img>
+                              <td>Valija Diplomatica</td>
+                              <td>Malas Ondas</td>
+                              <td>Setlist Principal</td>
+                              <td><img src="img/3diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/2diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1VPLEQ3A5oNC3M1vlDVqNezDvDjSvRx06/view?usp=sharing">Descargar CH</a></td>
+                              <td>Próximamente</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                        <tr>
+                              <td><img src="img/dos.jpg?raw=true" width="50" height="50"></td></img>
+                              <td>We Are the Grand</td>
+                              <td>Dos (ft. Francisca Valenzuela)</td>
+                              <td>Single</td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><img src="img/1diff.png?raw=true" width="20" height="20"></img></td>
+                              <td><a href="https://drive.google.com/file/d/1mHEpzgg0OvijRjkK7MpwsyUOHI5-1eP8/view?usp=sharing">Descargar CH</a></td>
+                              <td><a href="https://drive.google.com/file/d/1HyBFDAWAbqHkURLHZOmgYlEk4OfmyK0w/view?usp=sharing">Descargar GHWT</a></td>
+                              <td>Próximamente</td>
+                        </tr>
+                  </tbody>
+            </table>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.4.1.js"integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+      <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+      <script>
+        $(document).ready(function () {
+            $('#tablachart').DataTable({
+                language: {
+                    processing: "Tratamiento en curso...",
+                    search: "Buscar&nbsp;:",
+                    lengthMenu: "Agrupar de _MENU_ items",
+                    info: "",
+                    infoEmpty: "No existen datos.",
+                    infoFiltered: "(filtrado de _MAX_ elementos en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    zeroRecords: "No se encontraron datos con tu busqueda",
+                    emptyTable: "No hay datos disponibles en la tabla.",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": active para ordenar la columna en orden ascendente",
+                        sortDescending: ": active para ordenar la columna en orden descendente"
+                    }
+                },
+                scrollY: 400,
+                lengthMenu: [ [50,100,-1], [50,100,"All"] ],
+            });
+        });
+            document.addEventListener('DOMContentLoaded', function () {
+                  var cancionesDeshabilitadas = true; // Cambia esto según la lógica de tu aplicación
+                  if (cancionesDeshabilitadas) {
+                        var myModal = new bootstrap.Modal(document.getElementById('cancionesDeshabilitadasModal'));
+                        myModal.show();
+                  }
+            });
+    </script>
+</body>
+</html>

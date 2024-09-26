@@ -1,0 +1,15 @@
+body{
+  background-image:url(/img/background2.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.bg-dark2{
+  background-image:url(/img/background2.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.table-dark{
+  background-image:url(/img/background2.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
